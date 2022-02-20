@@ -9,13 +9,23 @@ template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
 int main() {
-    ll x1, x2, y1, y2;
-    cin >> x1 >> y1 >> x2 >> y2;
+    int n;
+    cin >> n;
 
-    ll a, b;
-    ll right1 = 5 - x1*x1 - y1*y1, right2 = 5 - x2*x2 - y2*y2;
+    vector<int> a(n);
+    rep(i,n) cin >> a[i];
 
-
-
+    int box = 0, now = a[0], cnt = 0, back = 0;
+    rep(i,n) {
+        if(now != a[i]) cnt = 0;
+        box++; cnt++; now = a[i];
+        if(now == cnt) {
+            box -= cnt;
+            back += cnt;
+            now = a[i-back];
+            cnt = 1;
+        }
+        cout << box << endl;
+    }
     return 0;
 }

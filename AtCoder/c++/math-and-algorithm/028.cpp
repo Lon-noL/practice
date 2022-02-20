@@ -8,14 +8,23 @@ using ll = long long;
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
+const int INF = 1001001001;
+
 int main() {
-    ll x1, x2, y1, y2;
-    cin >> x1 >> y1 >> x2 >> y2;
+    int n;
+    cin >> n;
+    vector<int> h(n);
+    rep(i,n) cin >> h[i];
 
-    ll a, b;
-    ll right1 = 5 - x1*x1 - y1*y1, right2 = 5 - x2*x2 - y2*y2;
+    vector<int> dp(n,INF);
+    dp[0] = 0;
 
+    for(int i = 0; i < n-1; i++) {
+        dp[i+1] = min((abs(h[i] - h[i+1]) + dp[i]), dp[i+1]);
+        if(i < n-2)
+            dp[i+2] = min((abs(h[i] - h[i+2]) + dp[i]), dp[i+2]);
+    }
 
-
+    cout << dp[n-1] << endl;
     return 0;
 }
