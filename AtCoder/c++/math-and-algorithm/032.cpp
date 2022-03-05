@@ -7,32 +7,30 @@ using namespace atcoder;
 using ll = long long;
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
-using P = pair<int,int>;
-
-set<P> f() {
-    set<P> res;
-    int sx, sy;
-    cin >> sx >> sy;
-
-    for(int x = -2; x <= 2; ++x) {
-        for(int y = -2; y <= 2; ++y) {
-            if(x*x + y*y != 5) continue;
-            res.emplace(sx+x, sy+y);
-        }
-    }
-    return res;
-}
 
 int main() {
-    auto as = f();
-    auto bs = f();
+    ll n, x;
+    cin >> n >> x;
 
-    for(P p : bs) {
-        if(as.count(p)) {
+    vector<ll> a(n);
+    rep(i,n) cin >> a[i];
+
+    sort(a.begin(), a.end());
+
+    int l = 0, r = n-1;
+    while(l <= r) {
+        int mid = (r + l) / 2;
+
+        if(a[mid] == x) {
             cout << "Yes" << endl;
             return 0;
         }
+        if(a[mid] > x)
+            r = mid - 1;
+        if(a[mid] < x)
+            l = mid + 1;
     }
+
     cout << "No" << endl;
     return 0;
 }
