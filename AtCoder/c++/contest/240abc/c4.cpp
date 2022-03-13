@@ -8,7 +8,7 @@ using ll = long long;
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
-// dp
+// bit演算
 
 int main() {
     int n, X;
@@ -18,18 +18,11 @@ int main() {
     b = vector<int>(n);
     rep(i,n) cin >> a[i] >> b[i];
 
-    vector<vector<bool>> dp(n+1, vector<bool>(X+101, false));
-    dp[0][0] = true;
-    rep(i,n) {
-        rep(x,X+1) {
-            if(dp[i][x]) {
-                dp[i+1][x+a[i]] = true;
-                dp[i+1][x+b[i]] = true;
-            }
-        }
-    }
+    bitset<10001> dp;
+    dp[0] = 1;
+    rep(i,n) dp = (dp<<a[i]) | (dp<<b[i]);
 
-    if(dp[n][X]) cout << "Yes" << endl;
+    if(dp[X]) cout << "Yes" << endl;
     else cout << "No" << endl;
     return 0;
 }
