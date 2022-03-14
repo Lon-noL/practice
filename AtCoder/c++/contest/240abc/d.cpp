@@ -28,4 +28,3 @@ int main() {
         cout << box << endl;
     }
     return 0;
-}

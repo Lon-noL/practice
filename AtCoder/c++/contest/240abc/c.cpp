@@ -21,7 +21,7 @@ int main() {
         suma += a[i];
         sumb += b[i];
     }
-
+// 例外
     if(x < suma || x > sumb) {
         cout << "No" << endl;
         return 0;
