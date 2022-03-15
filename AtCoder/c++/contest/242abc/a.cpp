@@ -16,18 +16,13 @@ int main() {
 
     if(x <= a) {
         ans = 1;
-        printf("%.10f\n", ans);
-        return 0;
     }
     if(x > b) {
         ans = 0;
-        printf("%.10f\n", ans);
-        return 0;
     }
     else {
         ans = c / (b - a);
-        printf("%.10f\n", ans);
-        return 0;
     }
+    printf("%.10f\n", ans);
     return 0;
 }
