@@ -11,29 +11,15 @@ int main() {
     int n;
     cin >> n;
 
-    int N = 2*n + 1;
-    vector<bool> ans(N, true);
-    ans[0] = false;
-    ans[1] = false;
-
-    cout << 1 << flush;
-
-    int takahashi = 2;
-    rep(i,n+1) {
-        int aoki;
-        cin >> aoki;
-        if(aoki == 0) return 0;
-        else {
-            ans[aoki] = false;
-            for(int j = takahashi; j <= N; j++) {
-                if(ans[j]) {
-                    ans[j] = false;
-                    cout << j << flush;
-                    takahashi = j;
-                    break;
-                }
-            }
-        }
+    set<int> se;
+    for(int i = 1; i <= 2*n+1; i++) se.insert(i);
+    while(se.size()) {
+        int a = *se.begin();
+        cout << a << endl;
+        se.erase(a);
+        int x;
+        cin >> x;
+        se.erase(x);
     }
 
     return 0;

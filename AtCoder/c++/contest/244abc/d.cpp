@@ -7,14 +7,29 @@ using namespace atcoder;
 using ll = long long;
 using P = pair<int,int>;
 
-int main() {
-    char s0, s1, s2;
-    char t0, t1, t2;
-    cin >> s0 >> s1 >> s2;
-    cin >> t0 >> t1 >> t2;
+string input() {
+    string res;
+    for(int i = 0; i < 3; i++) {
+        char c;
+        cin >> c;
+        if(c == 'R') res += '0';
+        if(c == 'G') res += '1';
+        if(c == 'B') res += '2';
+    }
+    return res;
+}
 
-    if(s0 == t0 && s1 == t1 && s2 == t2) cout << "Yes" << endl;
-    else if(s0 != t0 && s1 != t1 && s2 != t2) cout << "Yes" << endl;
+int color(string s) {
+    if(s == "012") return 0;
+    if(s == "201") return 0;
+    if(s == "120") return 0;
+    return 1;
+}
+
+int main() {
+    string s = input();
+    string t = input();
+    if(color(s) == color(t)) cout << "Yes" << endl;
     else cout << "No" << endl;
     return 0;
 }
