@@ -6,48 +6,34 @@ using namespace atcoder;
 #define rrep(i,a,b) for(int i = a; i >= b; i--)
 using ll = long long;
 using P = pair<int,int>;
-int n, k;
-
-int judge(int a, int x) {
-    if(abs(a - x) <= k) return 1;
-    return 0;
-}
 
 int main() {
+    int n, k;
     cin >> n >> k;
-    vector<int> a(n), b(n);
-    rep(i,n) cin >> a[i];
-    rep(i,n) cin >> b[i];
 
-    vector<int> memo(n);
-    int A = 0, B = 0;
-    for(int i = 0; i < n; i++) {
-        if(A < 2) {
-            if(judge(a[i],a[i+1])) {
-                memo[i-1] = 1;
-                A = 0;
+    vector<vector<int>> a(n,vector<int>(2));
+    rep(j,2) rep(i,n) cin >> a[i][j];
+
+    vector<vector<bool>> dp(n,vector<bool>(2));
+    dp[0][0] = dp[0][1] = true;
+
+    for(int i = 1; i < n; i++) {
+        rep(j,2) {
+            int pi = i - 1;
+            rep(pj,2) {
+                if(!dp[pi][pj]) continue;
+                if(abs(a[pi][pj] - a[i][j]) > k) continue;
+                dp[i][j] = true;
             }
-            else A += 1;
-            if(judge(a[i],b[i+1])) {
-                memo[i-1] = 1;
-                B = 0;
-            }
-            else B += 1;
-        }
-        if(B < 2) {
-            if(judge(b[i],a[i+1])) memo[i-1] = 1;
-            else A += 1;
-            if(judge(b[i],b[i+1])) memo[i-1] = 1;
-            else B += 1;
         }
     }
 
-    rep(i,n) {
-        if(!memo[i]) {
-            cout << "No" << endl;
+    rep(i,2) {
+        if(dp[n-1][i]) {
+            cout << "Yes" << endl;
             return 0;
         }
     }
-    cout << "Yes" << endl;
+    cout << "No" << endl;
     return 0;
 }
