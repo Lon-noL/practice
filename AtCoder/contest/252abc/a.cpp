@@ -12,5 +12,6 @@ int main() {
 
     char ans = n;
     cout << ans << endl;
+    // cout << (char)n << endl;
     return 0;
 }
