@@ -6,33 +6,29 @@ using namespace atcoder;
 using ll = long long;
 using P = pair<int,int>;
 
-ll c(int x) {
-    ll up = 1;
-    for(int i = 3; i > 0; i--){
-        up *= x;
-        x--;
-    }
-    ll ans = up / 6;
-    return ans;
-}
+const int INF = 100000;
 
-int main() {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    map<int,int> mp;
-    for(int i = 0; i < n; i++){
-        int x;
-        cin >> x;
-        if(mp.count(x)){
-            mp[x]++;
-        }
-        else{
-            mp[x] = 1;
-        }
-        a[i] = x;
+int main(){
+  int N;
+  cin >> N;
+  vector<int> A(N);
+  for (int i = 0; i < N; i++){
+    cin >> A[i];
+    A[i]--;
+  }
+  vector<int> cnt(200000, 0);
+  for (int i = 0; i < N; i++){
+    cnt[A[i]]++;
+  }
+  vector<vector<long long>> dp(4, vector<long long>(2000001, 0));
+  dp[0][0] = 1;
+  for (int i = 0; i < 200000; i++){
+    for (int j = 0; j < 4; j++){
+      dp[j][i + 1] += dp[j][i];
+      if (j < 3){
+        dp[j + 1][i + 1] += dp[j][i] * cnt[i];
+      }
     }
-    int cnt = n - mp.size();
-
-    return 0;
+  }
+  cout << dp[3][200000] << endl;
 }
